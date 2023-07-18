@@ -1,0 +1,22 @@
+@import "@/shared/styles/mixin.pcss";
+
+.login {
+    &__title {
+        text-align: center;
+        margin-bottom: var(--wrapper-body-margin-title);
+    }
+
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--wrapper-body-row-gap-inputs);
+        margin-bottom: 160px;
+    }
+
+    &__actions {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--wrapper-body-row-gap-actions);
+    }
+}

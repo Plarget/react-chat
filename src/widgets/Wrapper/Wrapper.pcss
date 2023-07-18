@@ -1,0 +1,25 @@
+@import "@/shared/styles/mixin.pcss";
+
+.wrapper {
+    @mixin flex-center;
+    background-color: var(--color-white);
+    height: 100%;
+
+    &__body {
+        max-height: 100vh;
+        overflow-y: auto;
+        width: 340px;
+        background-color: var(--color-white);
+        border-radius: 14px;
+        box-shadow: 0 0 6px rgb(0, 0, 0, 0.14);
+        padding: 50px 30px 30px 30px;
+
+        --wrapper-body-margin-title: 40px;
+        --wrapper-body-row-gap-inputs: 12px;
+        --wrapper-body-row-gap-actions: 14px;
+
+        @media(max-width: 480px) {
+            width: 100%;
+        }
+    }
+}

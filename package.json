@@ -1,0 +1,57 @@
+{
+  "name": "react-chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "@hookform/resolvers": "^3.1.1",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/compose-function": "^0.0.30",
+    "@types/react-input-mask": "^3.0.2",
+    "@types/react-redux": "^7.1.25",
+    "axios": "^1.4.0",
+    "classnames": "^2.3.2",
+    "compose-function": "^3.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.1",
+    "react-imask": "^7.1.2",
+    "react-query": "^3.39.3",
+    "react-redux": "^8.1.1",
+    "react-router": "^6.14.1",
+    "react-router-dom": "^6.14.1",
+    "redux-persist": "^6.0.0",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.0",
+    "@types/node": "^20.4.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "@vitejs/plugin-react": "^4.0.1",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "postcss": "^8.4.25",
+    "postcss-import": "^15.1.0",
+    "postcss-load-config": "^4.0.1",
+    "postcss-mixins": "^9.0.4",
+    "postcss-nested": "^6.0.1",
+    "postcss-preset-env": "^9.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0"
+  },
+  "eslintIgnore": [
+    "vite.config.ts"
+  ]
+}
