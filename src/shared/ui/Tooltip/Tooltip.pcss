@@ -1,0 +1,36 @@
+@import "@/shared/styles/mixin.pcss";
+
+.tooltip {
+  --tooltip-body-translate-y: 26px;
+  --tooltip-padding-inline: 15px;
+  position: relative;
+
+  &.is-active {
+    & .tooltip__button {
+      background-color: var(--colot-very-light-gray);
+      border-radius: 50%;
+    }
+  }
+
+  &:not(.is-active) {
+    & .tooltip__body {
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(
+        calc(var(--tooltip-body-translate-y) - 20px)
+      );
+    }
+  }
+
+  &__body {
+    position: absolute;
+    top: 100%;
+    right: -10px;
+    transform: translateY(var(--tooltip-body-translate-y));
+    padding-block: 7px;
+    border-radius: var(--border-radius-window);
+    box-shadow: var(--box-shadow-window);
+    background-color: var(--color-white);
+    transition: 0.3s;
+  }
+}

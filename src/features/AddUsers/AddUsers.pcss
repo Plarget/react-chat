@@ -1,0 +1,55 @@
+@import "@/shared/styles/mixin.pcss";
+
+.add-user {
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__search {
+    margin-bottom: 20px;
+  }
+
+  &__input {
+    margin-bottom: 20px;
+  }
+
+  &__user {
+    &-item {
+      padding-block: 8px;
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--color-litle-light-gray);
+      }
+    }
+  }
+
+  &__actions {
+    display: grid;
+    row-gap: 6px;
+  }
+
+  &__user-button {
+    padding: 5px;
+    color: var(--color-blue);
+    transition: 0.3s;
+
+    &:hover {
+      scale: 1.2;
+    }
+
+    &.is-active {
+      color: var(--color-red);
+      rotate: 45deg;
+    }
+
+    &-svg {
+      --add-user-button-svg-size: 25px;
+      width: var(--add-user-button-svg-size);
+      height: var(--add-user-button-svg-size);
+    }
+  }
+
+  &__error {
+    text-align: center;
+  }
+}

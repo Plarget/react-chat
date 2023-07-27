@@ -1,0 +1,13 @@
+@import "@/shared/styles/mixin.pcss";
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-inline: 20px;
+
+  &__empty {
+    @mixin flex-center;
+    width: 100%;
+  }
+}

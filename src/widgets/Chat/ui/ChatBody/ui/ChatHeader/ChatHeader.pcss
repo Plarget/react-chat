@@ -1,0 +1,43 @@
+@import "@/shared/styles/mixin.pcss";
+
+.chat-body__header {
+  display: flex;
+  align-items: center;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--color-litle-light-gray);
+  column-gap: 10px;
+
+  &-title {
+    margin-right: auto;
+  }
+
+  &-image {
+    &-wrapper {
+      --chat-body-image-size: 34px;
+      width: var(--chat-body-image-size);
+      height: var(--chat-body-image-size);
+      border-radius: 50%;
+      background-color: var(--color-light-gray);
+    }
+  }
+
+  &-back-button {
+    &-svg {
+      --chat-body-back-button-svg-size: 27px;
+      width: var(--chat-body-back-button-svg-size);
+      height: var(--chat-body-back-button-svg-size);
+    }
+  }
+
+  &-spread-button {
+    --chat-body-spread-button-size: 34px;
+    width: var(--chat-body-spread-button-size);
+    height: var(--chat-body-spread-button-size);
+
+    &-svg {
+      width: 100%;
+      height: 20px;
+    }
+  }
+}
+

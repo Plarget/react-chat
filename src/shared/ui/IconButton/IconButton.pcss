@@ -1,0 +1,19 @@
+@import "@/shared/styles/mixin.pcss";
+
+.icon-button {
+  @mixin flex-center;
+  transition: 0.3s;
+
+  &--hover:hover {
+    &:hover {
+      opacity: 0.75;
+      border-radius: 50%;
+      background-color: var(--colot-very-light-gray);
+    }
+  }
+
+  &--blue {
+    border-radius: 50%;
+    background-color: var(--color-blue);
+  }
+}

@@ -1,0 +1,46 @@
+@import "@/shared/styles/mixin.pcss";
+
+.popup {
+  @mixin fixed-fullscreen;
+  @mixin flex-center;
+  background-color: rgb(0, 0, 0, 0.4);
+  transition: 0.35s;
+  z-index: 7;
+
+  &:not(.is-active) {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__body {
+    position: relative;
+    overflow-y: auto;
+    max-height: 100vh;
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow-window);
+    padding: 40px 30px;
+    border-radius: var(--border-radius-window);
+    width: 340px;
+
+    @media (max-width: 375px) {
+      width: 100%;
+    }
+  }
+
+  &__cross {
+    position: absolute;
+    top: 7.5px;
+    right: 7.5px;
+    padding: 5px;
+
+    &-svg-wrapper {
+      display: inline-flex;
+    }
+
+    &-svg {
+      --popup-cross-size: 25px;
+      width: var(--popup-cross-size);
+      height: var(--popup-cross-size);
+    }
+  }
+}

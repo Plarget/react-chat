@@ -1,0 +1,33 @@
+@import "@/shared/styles/mixin.pcss";
+
+.chat-message {
+  --chat-message-border-radius: 12px;
+  padding: 11px;
+  background-color: var(--colot-lightest-gray);
+  max-width: 402px;
+  border-radius: var(--chat-message-border-radius);
+  border-top-left-radius: 0;
+
+  &__text {
+    margin-bottom: 5px;
+    overflow-wrap: break-word;
+  }
+
+  &.is-user-reply {
+    background-color: var(--color-light-blue);
+    border-radius: var(--chat-message-border-radius);
+    border-bottom-right-radius: 0;
+
+    .chat-message__time {
+      color: var(--color-blue);
+    }
+  }
+
+  &__time {
+    text-align: right;
+    font-weight: 500;
+    color: var(--color-gray);
+    font-size: 9px;
+    line-height: 1;
+  }
+}

@@ -1,22 +1,8 @@
-import { FC, useEffect } from "react"
-import Preview from "@/widgets/Preview"
-import useAppSelector from "@/shared/hooks/useAppSelector.ts"
-import { useNavigate } from "react-router"
+import type { FC } from "react"
+import Chat from "@/widgets/Chat";
 
 const MainPage: FC = () => {
-  const user = useAppSelector(state => state.UserReducer)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!(user?.user)) {
-      navigate("/login")
-    }
-  }, [user])
-  return (
-    <>
-      <Preview/>
-    </>
-  )
+  return <Chat/>
 }
 
 export default MainPage

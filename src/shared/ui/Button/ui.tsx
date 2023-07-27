@@ -1,4 +1,4 @@
-import { FC } from "react"
+import type { FC } from "react"
 import * as classNames from "classnames"
 import { TButton } from "@/shared/ui/Button/types.ts"
 import "./Button.pcss"

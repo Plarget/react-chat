@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react"
+import type { FC, PropsWithChildren } from "react"
 import "./Wrapper.pcss"
 
 const Wrapper: FC<PropsWithChildren> = (props) => {

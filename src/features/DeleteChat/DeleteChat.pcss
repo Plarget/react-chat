@@ -1,0 +1,27 @@
+@import "@/shared/styles/mixin.pcss";
+
+.delete-chat {
+  &__title {
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 250px;
+    margin-inline: auto;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__button {
+    width: 115px;
+  }
+
+  &__error {
+    text-align: center;
+  }
+}

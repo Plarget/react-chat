@@ -1,0 +1,33 @@
+@import "@/shared/styles/mixin.pcss";
+
+.change-avatar {
+  text-align: center;
+  display: grid;
+  row-gap: 45px;
+
+  &__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &__label {
+    max-width: 220px;
+    margin-inline: auto;
+    cursor: pointer;
+    white-space: pre-line;
+
+    &.is-active {
+      color: var(--color-dark-gray);
+      text-decoration: none;
+    }
+  }
+
+  &__submit {
+    display: grid;
+    row-gap: 15px;
+  }
+}

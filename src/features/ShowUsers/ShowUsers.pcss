@@ -1,0 +1,31 @@
+@import "@/shared/styles/mixin.pcss";
+
+.show-users {
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__user {
+    &-item {
+      padding-block: 8px;
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--color-litle-light-gray);
+      }
+    }
+    &-button {
+      color: var(--color-gray);
+
+      &:hover {
+        color: var(--color-red);
+      }
+
+      &-svg {
+        --show-users-button-svg-size: 25px;
+        width: var(--show-users-button-svg-size);
+        height: var(--show-users-button-svg-size);
+        rotate: 45deg;
+      }
+    }
+  }
+}

@@ -1,12 +1,13 @@
-import { FC } from "react"
+import type {FC} from "react"
 import * as classNames from "classnames"
-import { TInput } from "@/shared/ui/Input/types.ts"
+import {TInput} from "@/shared/ui/Input/types.ts"
 import "./Input.pcss"
 
 
 const Input: FC<TInput> = (props: TInput) => {
   const {
     className,
+    classNameControl,
     id,
     register,
     label,
@@ -20,8 +21,11 @@ const Input: FC<TInput> = (props: TInput) => {
     <div className={classNames(className, "input")}>
       {label && <label className="input__label" htmlFor={id}>{label}</label>}
       <input
-        className={classNames("input__control",
-          {"input__control--error": (errorControl && error)})}
+        className={classNames(
+          classNameControl,
+          "input__control", {
+            "input__control--error": (errorControl && error)
+          })}
         id={id}
         {...register}
         ref={(el) => {

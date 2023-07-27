@@ -1,0 +1,1 @@
+export type TGetDateFormatted = (time: Date) => string

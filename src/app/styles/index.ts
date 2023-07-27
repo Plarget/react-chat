@@ -1,4 +1,5 @@
-import "./utils.pcss"
 import "./reset.pcss"
-import "./global.pcss"
 import "./fonts.pcss"
+import "./vars.pcss"
+import "./global.pcss"
+import "./utils.pcss"

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { TAuthServices } from "@/shared/services/types.ts"
+import { TAuthServices } from "./types"
 
 axios.defaults.withCredentials = true
 

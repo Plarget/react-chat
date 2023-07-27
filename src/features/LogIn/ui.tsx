@@ -1,29 +1,26 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import Input from "@/shared/ui/Input"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import Button from "@/shared/ui/Button"
 import { NavLink } from "react-router-dom"
-import { TLogInUser } from "@/shared/types/comon.ts"
-import authServices from "@/shared/services/authServices.ts"
+import authServices from "@/shared/services/authServices"
 import { useNavigate } from "react-router"
-import useAppDispatch from "@/shared/hooks/useAppDispatch.ts"
-import { fetchUser } from "@/shared/store/reducers/ActionCreators.ts"
+import useAppDispatch from "@/shared/hooks/useAppDispatch"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Loading from "@/shared/ui/Loading"
+import { useMutation } from "@tanstack/react-query"
+import { setAuth } from "@/shared/store/reducers/AuthSlice.ts"
+import { TErrorResponse, TLogInUser } from "@/shared/types/comon.ts"
 import "./LogIn.pcss"
 
 const schema = yup
   .object({
-    login: yup.string().required("Незаполненное поле")
-      .min(3, "Слишком короткий").max(10, "Слишком длинный"),
-    password: yup.string().required("Незаполненное поле")
-      .min(5, "Слишком короткий").max(15, "Слишком длинный"),
+    login: yup.string().required("Незаполненное поле"),
+    password: yup.string().required("Незаполненное поле"),
   })
-const LogIn: FC = () => {
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
 
+const LogIn: FC = () => {
   const {
     register,
     formState: {errors},
@@ -35,24 +32,29 @@ const LogIn: FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const onSubmit: SubmitHandler<TLogInUser> = (data) => {
-    setIsLoading(true)
-    authServices.postSignIn(data)
-      .then(() => {
-        dispatch(fetchUser()).then(() => navigate("/"))
-      })
-      .catch(error => setError(error.response.data.reason))
-      .finally(() => setIsLoading(false))
-  }
+  const {
+    isLoading,
+    isError,
+    error,
+    mutate: signIn
+  } = useMutation<object, TErrorResponse, TLogInUser>({
+    mutationKey: ["signIn"],
+    mutationFn: authServices.postSignIn,
+    onSuccess: () => {
+      dispatch(setAuth(true))
+      navigate("/")
+    },
+  })
 
   return (
     <div className="login">
       <h2 className="login__title title">Вход</h2>
-      <form className="login__form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="login__form" onSubmit={handleSubmit((data) => signIn(data))}>
         <div className="login__inputs">
           <Input
             className="login__input"
             register={register("login")}
+            id="login"
             label="Логин"
             placeholder="ivanivanov"
             error={errors?.login?.message}
@@ -60,6 +62,7 @@ const LogIn: FC = () => {
           <Input
             className="login__input"
             register={register("password")}
+            id="password"
             label="Пароль"
             type="password"
             placeholder="••••••••••••"
@@ -67,7 +70,7 @@ const LogIn: FC = () => {
           />
         </div>
         <div className="login__actions">
-          {error && <div className="login__error error">{error}</div>}
+          {isError && <div className="login__error error">{error?.response.data.reason}</div>}
           <Button className="login__button" type="submit">Авторизоваться</Button>
           <NavLink className="login__link link" to="/register">Нет аккаунта?</NavLink>
         </div>

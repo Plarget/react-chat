@@ -1,3 +1,3 @@
-import Example from "./ui.tsx";
+import Example from "./ui";
 
 export default Example
