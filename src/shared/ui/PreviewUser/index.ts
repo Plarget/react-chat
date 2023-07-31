@@ -1,3 +1,3 @@
-import PreviewUser from "./ui.tsx";
+import PreviewUser from "./ui.tsx"
 
 export default PreviewUser

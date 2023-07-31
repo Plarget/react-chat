@@ -1,3 +1,3 @@
-import Tooltip from "./ui";
+import Tooltip from "./ui"
 
 export default Tooltip

@@ -8,8 +8,10 @@
   user-select: none;
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--color-light-blue);
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-light-blue);
+    }
   }
 
   &__body {
@@ -56,9 +58,16 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    overflow-wrap: anywhere;
   }
 
   &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
+
     &-wrapper {
       --chat-preview-image-size: 47px;
       flex-shrink: 0;

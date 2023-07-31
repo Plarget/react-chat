@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { TSvgIcon } from "@/shared/ui/SvgIcon/types.ts"
+import { TSvgIcon } from "./types.ts"
 
 const SvgIcon: FC<TSvgIcon> = (props) => {
   const {

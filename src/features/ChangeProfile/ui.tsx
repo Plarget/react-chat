@@ -2,13 +2,14 @@ import type { FC } from "react"
 import Input from "@/shared/ui/Input"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
-import { TChangeProfile } from "@/shared/types/comon.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Button from "@/shared/ui/Button"
 import { useMutation } from "@tanstack/react-query"
 import Loading from "@/shared/ui/Loading"
 import usersServices from "@/shared/services/usersServices"
-import { useIMask } from "react-imask"
+import { useEffect } from "react"
+import { TChangeProfile } from "@/features/ChangeProfile/types.ts"
+import { TChangeUserProfile } from "@/shared/types/comon.ts"
 import "./ChangeProfile.pcss"
 
 const schema = yup.object({
@@ -20,27 +21,33 @@ const schema = yup.object({
   login: yup.string().required("Незаполненное поле")
     .min(3, "Слишком короткий")
     .max(30, "Слишком длинный"),
-  email: yup.string().required("Незаполненное поле")
-    .email("Некорректный E-mail"),
-  phone: yup.string().required("Незаполненное поле")
-    .transform((value: string) => value.split(" ").join(""))
-    .length(14, "Неккоректный номер")
 })
 
-const ChangeProfile: FC = () => {
+const ChangeProfile: FC<TChangeProfile> = (props) => {
+  const {
+    userRefetch,
+    setActivePopup,
+    user
+  } = props
   const {
     register,
     formState: {
       errors
     },
+    reset,
     handleSubmit,
-  } = useForm<TChangeProfile>({
+  } = useForm<TChangeUserProfile>({
     resolver: yupResolver(schema),
   })
 
-  const {ref, unmaskedValue} = useIMask({
-    mask: "{+7} (000) 000 00 00"
-  })
+  useEffect(() => {
+    reset({
+      first_name: user.first_name,
+      second_name: user.second_name,
+      display_name: user.display_name,
+      login: user.login
+    })
+  }, [])
 
   const {
     isLoading: isLoading,
@@ -49,12 +56,17 @@ const ChangeProfile: FC = () => {
     mutate: changeProfile
   } = useMutation({
     mutationKey: ["changeProfile"],
-    mutationFn: (data: TChangeProfile) => {
-      const phone = "8" + unmaskedValue.slice(2)
-      return usersServices.changeProfile({...data, phone})
+    mutationFn: (data: TChangeUserProfile) => {
+      const dataChange = {
+        ...data,
+        phone: "89999999999",
+        email: "example123@yandex.ru",
+      }
+      return usersServices.changeProfile(dataChange)
     },
     onSuccess: () => {
-      console.log("Успешно!")
+      userRefetch()
+      setActivePopup(false)
     }
   })
 
@@ -70,7 +82,7 @@ const ChangeProfile: FC = () => {
           register={register("first_name")}
           id="first_name"
           label="Имя"
-          placeholder="Иван"
+          placeholder="Ваше имя"
           error={errors?.first_name?.message}
         />
         <Input
@@ -78,7 +90,7 @@ const ChangeProfile: FC = () => {
           register={register("second_name")}
           id="second_name"
           label="Фамилия"
-          placeholder="Иванов"
+          placeholder="Ваша фамилия"
           error={errors?.second_name?.message}
         />
         <Input
@@ -86,7 +98,7 @@ const ChangeProfile: FC = () => {
           register={register("display_name")}
           id="display_name"
           label="Имя в чате"
-          placeholder="Ванька"
+          placeholder="Имя в чате"
           error={errors?.display_name?.message}
         />
         <Input
@@ -94,27 +106,8 @@ const ChangeProfile: FC = () => {
           register={register("login")}
           id="login"
           label="Логин"
-          placeholder="ivanivanov"
+          placeholder="example123"
           error={errors?.login?.message}
-        />
-        <Input
-          className="change-profile__input"
-          register={register("email")}
-          id="email"
-          label="Почта"
-          placeholder="pochta@yandex.ru"
-          type="email"
-          error={errors?.email?.message}
-        />
-        <Input
-          className="change-profile__input"
-          register={register("phone")}
-          id="phone"
-          label="Телефон"
-          placeholder="+7 (909) 967 30 30"
-          inputRef={ref}
-          type="tel"
-          error={errors?.phone?.message}
         />
       </div>
       <div className="change-profile__submit">

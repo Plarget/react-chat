@@ -4,9 +4,9 @@ import SignUp from "@/features/SignUp"
 
 const SignUpPage: FC = () => {
   return (
-      <Wrapper>
-        <SignUp/>
-      </Wrapper>
+    <Wrapper>
+      <SignUp/>
+    </Wrapper>
   )
 }
 

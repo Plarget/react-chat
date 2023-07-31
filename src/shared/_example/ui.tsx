@@ -1,5 +1,5 @@
-import type { FC } from "react";
-import './example.pcss'
+import type { FC } from "react"
+import "./example.pcss"
 
 const Example: FC = () => {
   return (

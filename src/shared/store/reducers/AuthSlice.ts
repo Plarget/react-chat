@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { TAuthSlice } from "@/shared/store/reducers/types"
+import { TAuthSlice } from "./types"
 
 const initialState: TAuthSlice = {
   isAuth: false

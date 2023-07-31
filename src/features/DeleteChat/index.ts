@@ -1,3 +1,3 @@
-import DeleteChat from "./ui";
+import DeleteChat from "./ui"
 
 export default DeleteChat

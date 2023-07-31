@@ -1,3 +1,3 @@
-import ChangePassword from "./ui";
+import ChangePassword from "./ui"
 
 export default ChangePassword

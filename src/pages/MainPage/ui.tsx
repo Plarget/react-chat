@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import Chat from "@/widgets/Chat";
+import Chat from "@/widgets/Chat"
 
 const MainPage: FC = () => {
   return <Chat/>

@@ -1,5 +1,5 @@
 import axios from "axios"
-import {TUsersServices} from "./types"
+import { TUsersServices } from "./types"
 
 axios.defaults.withCredentials = true
 

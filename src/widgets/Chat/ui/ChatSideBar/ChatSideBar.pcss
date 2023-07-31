@@ -1,119 +1,130 @@
 @import "@/shared/styles/mixin.pcss";
 
 .chat-side-bar {
-    --chat-side-bar-padding-inline: 10px;
-    flex-shrink: 0;
+  --chat-side-bar-padding-inline: 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  width: 310px;
+  height: 100%;
+  background-color: var(--color-dark-white);
+  border-right: 1px solid var(--color-light-gray);
+  transition: 0.4s;
+
+  @media (max-width: 767px) {
+    @mixin absolute-fill;
+    z-index: 4;
+
+    &:not(.is-active) {
+      visibility: hidden;
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  &__header {
+    display: grid;
+    row-gap: 24px;
+    padding-top: 21px;
+    padding-bottom: 14px;
+    padding-inline: var(--chat-side-bar-padding-inline);
+  }
+
+  &__link {
     display: flex;
-    flex-direction: column;
-    width: 310px;
-    height: 100%;
-    background-color: var(--color-dark-white);
-    border-right: 1px solid var(--color-light-gray);
-    transition: 0.4s;
+    align-items: center;
+    column-gap: 8px;
+    position: relative;
 
-    @media (max-width: 767px) {
-        @mixin absolute-fill;
-        z-index: 4;
-
-        &:not(.is-active) {
-            visibility: hidden;
-            transform: translateX(-100%);
-            opacity: 0;
-        }
+    &-svg {
+      width: 8px;
+      height: 8px;
     }
 
-    &__header {
-        display: grid;
-        row-gap: 24px;
-        padding-top: 21px;
-        padding-bottom: 14px;
-        padding-inline: var(--chat-side-bar-padding-inline);
-    }
-
-    &__link {
-        display: flex;
-        align-items: center;
-        column-gap: 8px;
-        position: relative;
-
-        &-svg {
-            width: 8px;
-            height: 8px;
-        }
-
-        &:hover {
-            &:after {
-                scale: 1;
-            }
-        }
-
+    @media (hover: hover) {
+      &:hover {
         &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            width: 100%;
-            background-color: var(--color-gray);
-            scale: 0;
-            transition: 0.3s;
+          scale: 1;
         }
+      }
     }
 
-    &__input {
-        &-wrapper {
-            position: relative;
-            user-select: none;
-        }
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background-color: var(--color-gray);
+      scale: 0;
+      transition: 0.3s;
+    }
+  }
 
-        &-placeholder {
-            @mixin absolute-center;
-            display: flex;
-            align-items: center;
-            column-gap: 4px;
-            transform: translate(-65%,-50%);
-        }
-
-        &-svg {
-            width: 25px;
-            height: 16px;
-        }
+  &__input {
+    &-wrapper {
+      position: relative;
+      user-select: none;
     }
 
-    &__line {
-        border: 1px solid var(--color-litle-light-gray);
-
-        &-wrapper {
-            padding-inline: var(--chat-side-bar-padding-inline);
-        }
+    &-placeholder {
+      @mixin absolute-center;
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+      transform: translate(-65%, -50%);
     }
 
-    &__actions {
-        display: flex;
-        justify-content: space-between;
+    &-svg {
+      width: 25px;
+      height: 16px;
+    }
+  }
+
+  &__line {
+    border: 1px solid var(--color-litle-light-gray);
+
+    &-wrapper {
+      padding-inline: var(--chat-side-bar-padding-inline);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__chat {
+    &-item {
+      padding-block: 2px;
+      border-bottom: 1px solid var(--color-litle-light-gray);
     }
 
-    &__chat-item {
-        padding-block: 2px;
-        border-bottom: 1px solid var(--color-litle-light-gray);
+    &-list {
+      overflow-y: auto;
+    }
+  }
+
+  &__empty {
+    @mixin flex-center;
+    flex-grow: 1;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--color-blue);
+      }
     }
 
-    &__empty {
-        @mixin flex-center;
-        flex-grow: 1;
+    &-svg {
+      --chat-side-bar-button-svg-size: 30px;
+      height: var(--chat-side-bar-button-svg-size);
+      width: var(--chat-side-bar-button-svg-size);
     }
-
-    &__button {
-        display: flex;
-        align-items: center;
-        &:hover {
-            color: var(--color-blue);
-        }
-
-        &-svg {
-            --chat-side-bar-button-svg-size: 30px;
-            height: var(--chat-side-bar-button-svg-size);
-            width: var(--chat-side-bar-button-svg-size);
-        }
-    }
+  }
 }

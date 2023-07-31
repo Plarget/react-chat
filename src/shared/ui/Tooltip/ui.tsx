@@ -1,9 +1,9 @@
-import type {FC} from "react"
+import type { FC } from "react"
 import * as classNames from "classnames"
-import {useRef} from "react"
+import { useRef } from "react"
 import useClickOutside from "@/shared/hooks/useClickOutside.ts"
 import useToggle from "@/shared/hooks/useToggle.ts"
-import {TTooltip} from "@/shared/ui/Tooltip/types.ts"
+import { TTooltip } from "./types.ts"
 import "./Tooltip.pcss"
 
 const Tooltip: FC<TTooltip> = (props) => {
@@ -27,11 +27,11 @@ const Tooltip: FC<TTooltip> = (props) => {
       "is-active": isActiveTooltip
     })} ref={ref}>
       {renderTriggerComponent({
-        className: 'tooltip__button',
+        className: "tooltip__button",
         onClick: toggleActiveTooltip
       })}
       <div className="tooltip__body">
-        {children}
+        {isActiveTooltip && (children)}
       </div>
     </div>
   )

@@ -1,3 +1,3 @@
-import ChatSideBar from "./ui";
+import ChatSideBar from "./ui"
 
 export default ChatSideBar

@@ -1,6 +1,6 @@
 @import "@/shared/styles/mixin.pcss";
 
-.chat-body__header {
+.chat__header {
   display: flex;
   align-items: center;
   padding-block: 10px;
@@ -12,6 +12,11 @@
   }
 
   &-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
     &-wrapper {
       --chat-body-image-size: 34px;
       width: var(--chat-body-image-size);

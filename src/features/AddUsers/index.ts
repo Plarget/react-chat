@@ -1,3 +1,3 @@
-import AddUsers from "./ui";
+import AddUsers from "./ui"
 
 export default AddUsers

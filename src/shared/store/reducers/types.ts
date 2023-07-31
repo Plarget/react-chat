@@ -1,3 +1,3 @@
-  export type TAuthSlice = {
+export type TAuthSlice = {
   isAuth: boolean,
 }

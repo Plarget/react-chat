@@ -1,5 +1,5 @@
 import axios from "axios"
-import {TChatsServices} from "./types.ts"
+import { TChatsServices } from "./types.ts"
 
 const BASE_URL = "https://ya-praktikum.tech/api/v2"
 
@@ -44,6 +44,16 @@ const chatsServices: TChatsServices = {
   },
   getToken: async (id) => {
     return axios.post(`${BASE_URL}/chats/token/${id}`)
+  },
+  changeAvatar: async (data) => {
+    return axios.put(`${BASE_URL}/chats/avatar`, {
+      ...data,
+
+    }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    })
   },
 }
 

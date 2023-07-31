@@ -1,5 +1,5 @@
-import type {FC} from "react"
-import {TPreviewUser} from "@/shared/ui/PreviewUser/types.ts"
+import type { FC } from "react"
+import { TPreviewUser } from "./types.ts"
 import * as classNames from "classnames"
 import "./PreviewUser.pcss"
 
@@ -7,7 +7,8 @@ const PreviewUser: FC<TPreviewUser> = (props) => {
   const {
     user,
     className,
-    actionButton
+    actionButton,
+    isUserSelf
   } = props
 
   const {first_name, avatar, display_name} = user
@@ -15,6 +16,7 @@ const PreviewUser: FC<TPreviewUser> = (props) => {
   return (
     <div className={classNames(className, "preview-user")}>
       <div className="preview-user__info">
+        {isUserSelf && <div className="preview-user__self label label--small">Вы:</div>}
         <div className="preview-user__image-wrapper">
           {avatar && (
             <img

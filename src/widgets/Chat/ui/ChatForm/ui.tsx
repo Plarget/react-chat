@@ -1,9 +1,9 @@
-import type {FC, FormEventHandler} from "react"
+import type { FC, FormEventHandler } from "react"
 import Input from "@/shared/ui/Input"
 import IconButton from "@/shared/ui/IconButton"
 import SvgIcon from "@/shared/ui/SvgIcon"
-import {useState} from "react"
-import {TChatForm} from "@/widgets/Chat/ui/ChatBody/ui/ChatForm/types.ts"
+import { useState } from "react"
+import { TChatForm } from "./types.ts"
 import "./ChatForm.pcss"
 
 const ChatForm: FC<TChatForm> = (props) => {
@@ -19,16 +19,16 @@ const ChatForm: FC<TChatForm> = (props) => {
   }
 
   return (
-    <form className="chat-body__form" onSubmit={onSubmit}>
+    <form className="chat__form" onSubmit={onSubmit}>
       <Input
-        className="chat-body__form-input"
-        classNameControl="chat-body__form-input-control input__control--gray"
+        className="chat__form-input"
+        classNameControl="chat__form-input-control input__control--gray"
         placeholder="Сообщение"
         onChange={(event) => setValue(event.target.value)}
         value={value}
       />
-      <IconButton className="chat-body__form-button icon-button--blue">
-        <SvgIcon className="chat-body__form-button-svg" name="arrow-send"/>
+      <IconButton className="chat__form-button icon-button--blue">
+        <SvgIcon className="chat__form-button-svg" name="arrow-send"/>
       </IconButton>
     </form>
   )

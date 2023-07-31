@@ -1,4 +1,4 @@
-import {ForwardedRef, InputHTMLAttributes, MutableRefObject} from "react"
+import { ForwardedRef, InputHTMLAttributes, MutableRefObject } from "react"
 import { UseFormRegisterReturn } from "react-hook-form"
 
 export type TInput = InputHTMLAttributes<HTMLInputElement> & {

@@ -1,3 +1,3 @@
-import SvgIcon from "./ui";
+import SvgIcon from "./ui"
 
 export default SvgIcon

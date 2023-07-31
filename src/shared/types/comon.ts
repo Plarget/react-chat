@@ -19,8 +19,6 @@ export type TUser = {
   second_name: string,
   display_name: string,
   login: string,
-  email: string,
-  phone: string,
   avatar: string
 }
 
@@ -34,7 +32,14 @@ export type TErrorResponse = {
   message: string
 };
 
-export type TChangeProfile = {
+export type TChangeUserProfile= {
+  first_name: string,
+  second_name: string,
+  display_name: string,
+  login: string,
+}
+
+export type TChangeUserProfileRequest = {
   first_name: string,
   second_name: string,
   display_name: string,

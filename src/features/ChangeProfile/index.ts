@@ -1,3 +1,3 @@
-import ChangeProfile from "./ui";
+import ChangeProfile from "./ui"
 
 export default ChangeProfile

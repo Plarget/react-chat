@@ -1,7 +1,7 @@
-import type {FC} from "react"
+import type { FC } from "react"
 import Button from "@/shared/ui/Button"
-import {TDeleteChat} from "@/features/DeleteChat/types.ts"
-import {useMutation} from "@tanstack/react-query"
+import { TDeleteChat } from "./types.ts"
+import { useMutation } from "@tanstack/react-query"
 import chatsServices from "@/shared/services/chatServices"
 import Loading from "@/shared/ui/Loading"
 import "./DeleteChat.pcss"
@@ -9,7 +9,9 @@ import "./DeleteChat.pcss"
 const DeleteChat: FC<TDeleteChat> = (props) => {
   const {
     id,
-    setActivePopup
+    setActivePopup,
+    setCurrentChat,
+    setActiveBar
   } = props
 
   const {
@@ -22,7 +24,8 @@ const DeleteChat: FC<TDeleteChat> = (props) => {
     mutationFn: chatsServices.deleteChat,
     onSuccess: () => {
       setActivePopup(false)
-      console.log("Успешно!")
+      setActiveBar(true)
+      setCurrentChat(null)
     }
   })
 
@@ -38,7 +41,7 @@ const DeleteChat: FC<TDeleteChat> = (props) => {
           Да
         </Button>
       </div>
-      {isError && <div className='delete-chat__error error'>{error?.response?.data?.reason}</div>}
+      {isError && <div className="delete-chat__error error">{error?.response?.data?.reason}</div>}
       {isLoading && <Loading/>}
     </div>
   )

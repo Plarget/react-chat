@@ -9,15 +9,19 @@
   &__user {
     &-item {
       padding-block: 8px;
+
       &:not(:last-child) {
         border-bottom: 1px solid var(--color-litle-light-gray);
       }
     }
+
     &-button {
       color: var(--color-gray);
 
-      &:hover {
-        color: var(--color-red);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--color-red);
+        }
       }
 
       &-svg {

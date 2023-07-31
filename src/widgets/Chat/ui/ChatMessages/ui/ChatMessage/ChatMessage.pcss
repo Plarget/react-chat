@@ -7,6 +7,13 @@
   max-width: 402px;
   border-radius: var(--chat-message-border-radius);
   border-top-left-radius: 0;
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: auto;
+
+  @media (max-width: 480px) {
+    max-width: 260px;
+  }
 
   &__text {
     margin-bottom: 5px;
@@ -17,6 +24,8 @@
     background-color: var(--color-light-blue);
     border-radius: var(--chat-message-border-radius);
     border-bottom-right-radius: 0;
+    margin-right: 0;
+    margin-left: auto;
 
     .chat-message__time {
       color: var(--color-blue);

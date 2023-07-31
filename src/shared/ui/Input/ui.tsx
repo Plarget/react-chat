@@ -1,6 +1,6 @@
-import type {FC} from "react"
+import type { FC } from "react"
 import * as classNames from "classnames"
-import {TInput} from "@/shared/ui/Input/types.ts"
+import { TInput } from "./types.ts"
 import "./Input.pcss"
 
 

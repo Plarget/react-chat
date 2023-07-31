@@ -4,9 +4,9 @@ import LogIn from "@/features/LogIn"
 
 const LogInPage: FC = () => {
   return (
-      <Wrapper>
-        <LogIn/>
-      </Wrapper>
+    <Wrapper>
+      <LogIn/>
+    </Wrapper>
   )
 }
 

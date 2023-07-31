@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import * as classNames from "classnames"
-import { TIconButton } from "@/shared/ui/IconButton/types.ts"
+import { TIconButton } from "./types.ts"
 import "./IconButton.pcss"
 
 const IconButton: FC<TIconButton> = (props) => {

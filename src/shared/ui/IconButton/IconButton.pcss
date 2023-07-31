@@ -5,10 +5,12 @@
   transition: 0.3s;
 
   &--hover:hover {
-    &:hover {
-      opacity: 0.75;
-      border-radius: 50%;
-      background-color: var(--colot-very-light-gray);
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.75;
+        border-radius: 50%;
+        background-color: var(--colot-very-light-gray);
+      }
     }
   }
 

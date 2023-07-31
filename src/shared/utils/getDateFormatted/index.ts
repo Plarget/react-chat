@@ -1,9 +1,10 @@
-import {TGetDateFormatted} from "@/shared/utils/getDateFormatted/types.ts"
+import { TGetDateFormatted } from "@/shared/utils/getDateFormatted/types.ts"
 
 const getDateFormatted: TGetDateFormatted = (time) => {
   const date = new Date(time)
+  if (!date) return ""
   const day = date.getDate()
-  const month = date.toLocaleString('default', { month: 'short' })
+  const month = date.toLocaleString("default", {month: "short"})
   const year = date.getFullYear()
   const hours = date.getHours()
   const minutes = date.getMinutes()

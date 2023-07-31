@@ -1,37 +1,38 @@
-import type {FC} from "react"
-import {Link} from "react-router-dom"
+import type { FC } from "react"
+import { Link } from "react-router-dom"
 import Input from "@/shared/ui/Input"
 import SvgIcon from "@/shared/ui/SvgIcon"
-import {useQuery} from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import chatsServices from "@/shared/services/chatServices"
 import Popup from "@/shared/ui/Popup"
-import {useState} from "react"
+import { useState } from "react"
 import CreateChat from "@/features/CreateChat"
-import ChatPreview from "@/widgets/Chat/ui/ChatSideBar/ui/ChatPreview"
-import {TChatSideBar} from "@/widgets/Chat/ui/ChatSideBar/types.ts"
+import ChatPreview from "./ui/ChatPreview"
+import { TChatSideBar } from "./types.ts"
 import * as classNames from "classnames"
+import useDebounce from "@/shared/hooks/useDebounce.ts"
 import "./ChatSideBar.pcss"
 
 const ChatSideBar: FC<TChatSideBar> = (props) => {
   const {
-    setChat,
+    currentChat,
+    setCurrentChat,
     isActive,
-    setActive
+    setActive,
+    chatAvatar
   } = props
   const [isActivePopup, setActivePopup] = useState(false)
   const [value, setValue] = useState("")
+  const debouncedValue = useDebounce<string>(value)
 
-  const {data} = useQuery(
-    ["getChats", value],
-    () => chatsServices.getChats(value), {
-      onSuccess: () => {
-        console.log("Юху")
-      },
+  const {data: dataChats, refetch} = useQuery(
+    ["getChats", debouncedValue, currentChat],
+    () => chatsServices.getChats(debouncedValue), {
       keepPreviousData: true
     }
   )
 
-  const chats = data?.data
+  const chats = dataChats?.data
 
   return (
     <aside className={classNames("chat-side-bar", {
@@ -71,13 +72,14 @@ const ChatSideBar: FC<TChatSideBar> = (props) => {
         <hr className="chat-side-bar__line"/>
       </div>
       {chats?.length ?
-        <ul className="chat-side-bar__chat-list">
+        <ul className="chat-side-bar__chat chat-side-bar__chat-list">
           {chats.map((el) => (
             <li className="chat-side-bar__chat-item" key={el.id}>
               <ChatPreview
                 chat={el}
-                setChat={setChat}
+                setCurrentChat={setCurrentChat}
                 setActive={setActive}
+                chatAvatar={chatAvatar}
               />
             </li>
           ))}
@@ -86,9 +88,11 @@ const ChatSideBar: FC<TChatSideBar> = (props) => {
           <div className="chat-side-bar__empty text text--gray">У вас нету доступных чатов</div>
         )
       }
-      <Popup isActive={isActivePopup} setActive={setActivePopup}>
-        <CreateChat/>
-      </Popup>
+      {isActivePopup && (
+        <Popup setActive={setActivePopup}>
+          <CreateChat setActivePopup={setActivePopup} refetch={refetch}/>
+        </Popup>
+      )}
     </aside>
   )
 }

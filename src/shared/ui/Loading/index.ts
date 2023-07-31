@@ -1,3 +1,3 @@
-import Loading from "./ui.tsx";
+import Loading from "./ui.tsx"
 
 export default Loading

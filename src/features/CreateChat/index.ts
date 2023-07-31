@@ -1,3 +1,3 @@
-import CreateChat from "./ui";
+import CreateChat from "./ui"
 
 export default CreateChat

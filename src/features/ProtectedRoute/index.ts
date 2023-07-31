@@ -1,3 +1,3 @@
-import ProtectedRoute from "./ui.tsx";
+import ProtectedRoute from "./ui.tsx"
 
 export default ProtectedRoute

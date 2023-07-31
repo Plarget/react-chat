@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { useForm } from "react-hook-form"
-import { TChangePassword, TErrorResponse } from "@/shared/types/comon.ts"
+import { TChangePassword } from "@/shared/types/comon.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Input from "@/shared/ui/Input"

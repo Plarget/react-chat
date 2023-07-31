@@ -11,6 +11,7 @@ import ChangeProfile from "@/features/ChangeProfile"
 import ChangePassword from "@/features/ChangePassword"
 import SvgIcon from "@/shared/ui/SvgIcon"
 import { Link } from "react-router-dom"
+import Loading from "@/shared/ui/Loading"
 import "./Profile.pcss"
 
 const Profile: FC = () => {
@@ -19,11 +20,11 @@ const Profile: FC = () => {
   const [isActivePopupPassword, setActivePopupPassword] = useState(false)
 
   const dispatch = useAppDispatch()
-  const {data} = useQuery(
+  const {data: userData, refetch: userRefetch} = useQuery(
     ["userInfo"],
     authServices.getUserInfo,
   )
-  const user = data?.data
+  const user = userData?.data
 
   const {mutate: logOut} = useMutation({
     mutationKey: ["logOut"],
@@ -31,50 +32,44 @@ const Profile: FC = () => {
     onSuccess: () => dispatch(setAuth(false))
   })
 
+  if (!user) return <Loading/>
+
   return (
     <div className="profile">
-      <Link className='profile__link' to="../" relative="path">
-        <SvgIcon className='profile__link-svg' name="arrow-back" color='#ffde5a'/>
+      <Link className="profile__link" to="../" relative="path">
+        <SvgIcon className="profile__link-svg" name="arrow-back" color="#ffde5a"/>
       </Link>
       <div className="profile__body container">
         <div className="profile__preview">
           <button className="profile__image-wrapper" onClick={() => setActivePopupAvatar(true)}>
             <img
               className="profile__image"
-              src={user?.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
-                user?.avatar
+              src={user.avatar ? `https://ya-praktikum.tech/api/v2/resources/${
+                user.avatar
               }` : "/images/content/avatar.png"}
               alt="empty avatar"
               width="40" height="40" loading="lazy"
             />
             <span className="profile__image-change text text--white">Поменять аватар</span>
           </button>
-          <h2 className="profile__label label">{user?.first_name}</h2>
+          <h2 className="profile__label label">{user.first_name}</h2>
         </div>
         <ul className="profile__info">
           <li className="profile__info-item">
-            <h3 className="profile__info-title title title--tiny">Почта</h3>
-            <div className="profile__info-detail label label--gray">{user?.email}</div>
-          </li>
-          <li className="profile__info-item">
             <h3 className="profile__info-title title title--tiny">Логин</h3>
-            <div className="profile__info-detail label label--gray">{user?.login}</div>
+            <div className="profile__info-detail label label--gray">{user.login}</div>
           </li>
           <li className="profile__info-item">
             <h3 className="profile__info-title title title--tiny">Имя</h3>
-            <div className="profile__info-detail label label--gray">{user?.first_name}</div>
+            <div className="profile__info-detail label label--gray">{user.first_name}</div>
           </li>
           <li className="profile__info-item">
             <h3 className="profile__info-title title title--tiny">Фамилия</h3>
-            <div className="profile__info-detail label label--gray">{user?.second_name}</div>
+            <div className="profile__info-detail label label--gray">{user.second_name}</div>
           </li>
           <li className="profile__info-item">
             <h3 className="profile__info-title title title--tiny">Имя в чате</h3>
-            <div className="profile__info-detail label label--gray">{user?.display_name || user?.first_name}</div>
-          </li>
-          <li className="profile__info-item">
-            <h3 className="profile__info-title title title--tiny">Телефон</h3>
-            <div className="profile__info-detail label label--gray">{user?.phone}</div>
+            <div className="profile__info-detail label label--gray">{user.display_name || user.first_name}</div>
           </li>
         </ul>
         <div className="profile__actions">
@@ -83,15 +78,21 @@ const Profile: FC = () => {
           <Button className="profile__button button--red" onClick={() => logOut()}>Выйти</Button>
         </div>
       </div>
-      <Popup isActive={isActivePopupAvatar} setActive={setActivePopupAvatar}>
-        <ChangeAvatar/>
-      </Popup>
-      <Popup isActive={isActivePopupProfile} setActive={setActivePopupProfile}>
-        <ChangeProfile/>
-      </Popup>
-      <Popup isActive={isActivePopupPassword} setActive={setActivePopupPassword}>
-        <ChangePassword/>
-      </Popup>
+      {isActivePopupAvatar && (
+        <Popup setActive={setActivePopupAvatar}>
+          <ChangeAvatar change="profile" refetch={userRefetch}/>
+        </Popup>
+      )}
+      {isActivePopupProfile &&
+        (<Popup setActive={setActivePopupProfile}>
+            <ChangeProfile userRefetch={userRefetch} setActivePopup={setActivePopupProfile} user={user}/>
+          </Popup>
+        )}
+      {isActivePopupPassword && (
+        <Popup setActive={setActivePopupPassword}>
+          <ChangePassword/>
+        </Popup>
+      )}
     </div>
   )
 }

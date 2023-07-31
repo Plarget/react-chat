@@ -1,11 +1,12 @@
-import type {FC} from "react"
-import {useMutation, useQuery} from "@tanstack/react-query"
+import type { FC } from "react"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import chatsServices from "@/shared/services/chatServices"
-import {TShowUsers} from "@/features/ShowUsers/types.ts"
-import {TChatUsers, TErrorResponse} from "@/shared/types/comon.ts"
+import { TShowUsers } from "./types.ts"
+import { TChatUsers, TErrorResponse } from "@/shared/types/comon.ts"
 import PreviewUser from "@/shared/ui/PreviewUser"
 import IconButton from "@/shared/ui/IconButton"
 import SvgIcon from "@/shared/ui/SvgIcon"
+import authServices from "@/shared/services/authServices"
 import "./ShowUsers.pcss"
 
 const ShowUsers: FC<TShowUsers> = (props) => {
@@ -13,11 +14,17 @@ const ShowUsers: FC<TShowUsers> = (props) => {
     chatId
   } = props
 
-  const {data, refetch} = useQuery(
+  const {
+    data: dataChatUsers,
+    refetch: refetchChatUsers
+  } = useQuery(
     ["getUsers"],
-    () => chatsServices.getUsers(chatId), {
-      refetchOnMount: true
-    }
+    () => chatsServices.getUsers(chatId)
+  )
+
+  const {data: dataUser} = useQuery(
+    ["getUser"],
+    authServices.getUserInfo
   )
 
   const {
@@ -26,22 +33,23 @@ const ShowUsers: FC<TShowUsers> = (props) => {
     mutationKey: ["deleteUsers"],
     mutationFn: chatsServices.deleteUsers,
     onSuccess: () => {
-      refetch()
+      refetchChatUsers()
     }
   })
-  const users = data?.data
+  const users = dataChatUsers?.data
 
   return (
     <div className="show-users">
       <h3 className="show-users__title title title--small">Список пользователей</h3>
       <ul className="show-users__user show-users__user-list">
-        {users?.length &&
+        {(users?.length && dataUser) &&
           users.map((user) => (
             <li className="show-users__user-item" key={user.id}>
               <PreviewUser
                 className="show-users__user-preview"
                 user={user}
-                actionButton={
+                isUserSelf={user.id === dataUser.data.id}
+                actionButton={user.id !== dataUser.data.id && (
                   <IconButton
                     className="show-users__user-button"
                     onClick={() => deleteUsers({
@@ -51,7 +59,7 @@ const ShowUsers: FC<TShowUsers> = (props) => {
                   >
                     <SvgIcon className="show-users__user-button-svg" name="plus"/>
                   </IconButton>
-                }
+                )}
               />
             </li>
           ))

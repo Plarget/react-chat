@@ -1,3 +1,3 @@
-import IconButton from "./ui";
+import IconButton from "./ui"
 
 export default IconButton

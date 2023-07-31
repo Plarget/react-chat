@@ -1,25 +1,31 @@
 @import "@/shared/styles/mixin.pcss";
 
 .wrapper {
-    @mixin flex-center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-white);
+  height: 100%;
+  overflow-y: auto;
+  padding-block: 30px;
+
+  @media (max-width: 480px) {
+    justify-content: normal;
+  }
+
+  &__body {
+    width: 340px;
     background-color: var(--color-white);
-    height: 100%;
+    border-radius: var(--border-radius-window);
+    box-shadow: var(--box-shadow-window);
+    padding: 50px 30px 30px 30px;
 
-    &__body {
-        max-height: 100vh;
-        overflow-y: auto;
-        width: 340px;
-        background-color: var(--color-white);
-        border-radius: var(--border-radius-window);
-        box-shadow: var(--box-shadow-window);
-        padding: 50px 30px 30px 30px;
+    --wrapper-body-margin-title: 40px;
+    --wrapper-body-row-gap-inputs: 12px;
+    --wrapper-body-row-gap-actions: 14px;
 
-        --wrapper-body-margin-title: 40px;
-        --wrapper-body-row-gap-inputs: 12px;
-        --wrapper-body-row-gap-actions: 14px;
-
-        @media(max-width: 480px) {
-            width: 100%;
-        }
+    @media (max-width: 480px) {
+      width: 100%;
     }
+  }
 }

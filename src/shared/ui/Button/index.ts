@@ -1,3 +1,3 @@
-import Button from "./ui.tsx";
+import Button from "./ui.tsx"
 
 export default Button

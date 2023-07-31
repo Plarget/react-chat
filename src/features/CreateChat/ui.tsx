@@ -1,13 +1,14 @@
-import type {FC} from "react";
-import Input from "@/shared/ui/Input";
-import Button from "@/shared/ui/Button";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import {useMutation} from "@tanstack/react-query";
-import {TCreateChat, TErrorResponse} from "@/shared/types/comon.ts";
-import chatsServices from "@/shared/services/chatServices";
-import Loading from "@/shared/ui/Loading";
+import type { FC } from "react"
+import Input from "@/shared/ui/Input"
+import Button from "@/shared/ui/Button"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { useMutation } from "@tanstack/react-query"
+import { TCreateChat } from "@/shared/types/comon.ts"
+import chatsServices from "@/shared/services/chatServices"
+import Loading from "@/shared/ui/Loading"
+import { TCreatChat } from "./types.ts"
 import "./CreateChat.pcss"
 
 const schema = yup.object({
@@ -15,12 +16,16 @@ const schema = yup.object({
     .max(30, "Слишком большое название")
 })
 
-const CreateChat: FC = () => {
+const CreateChat: FC<TCreatChat> = (props) => {
+  const {
+    refetch,
+    setActivePopup
+  } = props
+
   const {
     register,
     formState: {errors},
     handleSubmit,
-    reset
   } = useForm<TCreateChat>({
     resolver: yupResolver(schema),
   })
@@ -34,8 +39,8 @@ const CreateChat: FC = () => {
     mutationKey: ["createChat"],
     mutationFn: chatsServices.createChat,
     onSuccess: () => {
-      console.log("Успешно!")
-      reset()
+      refetch()
+      setActivePopup(false)
     }
   })
 

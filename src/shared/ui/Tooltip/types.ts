@@ -1,4 +1,4 @@
-import {ButtonHTMLAttributes, PropsWithChildren, ReactNode} from "react"
+import { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react"
 
 export type TTooltip = PropsWithChildren<{
   className?: string,

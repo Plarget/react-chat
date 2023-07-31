@@ -1,7 +1,7 @@
-import type {FC} from "react"
+import type { FC } from "react"
 import Input from "@/shared/ui/Input"
-import {useState} from "react"
-import {useMutation, useQuery} from "@tanstack/react-query"
+import { useState } from "react"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import usersServices from "@/shared/services/usersServices"
 import PreviewUser from "@/shared/ui/PreviewUser"
 import IconButton from "@/shared/ui/IconButton"
@@ -9,7 +9,8 @@ import SvgIcon from "@/shared/ui/SvgIcon"
 import * as classNames from "classnames"
 import Button from "@/shared/ui/Button"
 import chatsServices from "@/shared/services/chatServices"
-import {TAddUsers} from "@/features/AddUsers/types.ts"
+import { TAddUsers } from "./types.ts"
+import useDebounce from "@/shared/hooks/useDebounce.ts"
 import "./AddUsers.pcss"
 
 const AddUsers: FC<TAddUsers> = (props) => {
@@ -19,18 +20,24 @@ const AddUsers: FC<TAddUsers> = (props) => {
 
   const [value, setValue] = useState("")
   const [usersForm, setUsersForm] = useState<Array<number>>([])
+  const debouncedValue = useDebounce<string>(value)
+  const hasUsersInForm = usersForm.length > 0
 
-  const {data, isError, error} = useQuery(
-    ["searchUser", value],
-    () => usersServices.searchUser({login: value.trim()}), {
-      enabled: Boolean(value.trim()),
+  const {
+    data: usersData,
+    isError: isErrorsUsers,
+    error: errorUsers
+  } = useQuery(
+    ["searchUser", debouncedValue],
+    () => usersServices.searchUser({login: debouncedValue.trim()}), {
+      enabled: Boolean(debouncedValue.trim()),
       keepPreviousData: true,
     }
   )
 
   const {
-    isError: isErrorUsers,
-    error: errorUsers,
+    isError: isErrorAddUser,
+    error: errorAddUser,
     mutate: addUsers
   } = useMutation({
     mutationKey: ["addUsers"],
@@ -41,7 +48,7 @@ const AddUsers: FC<TAddUsers> = (props) => {
     }
   })
 
-  const users = data?.data
+  const users = usersData?.data
 
   return (
     <div className="add-user">
@@ -84,7 +91,7 @@ const AddUsers: FC<TAddUsers> = (props) => {
           }
         </ul>
       </div>
-      {Boolean(usersForm.length) && (
+      {hasUsersInForm && (
         <div className="add-user__actions">
           <Button
             className="add-user__button"
@@ -101,12 +108,14 @@ const AddUsers: FC<TAddUsers> = (props) => {
           >
             Отмена
           </Button>
-          {isErrorUsers &&
-              <div className="add-user__error error">{errorUsers?.response?.data?.reason}</div>
-          }
+          {isErrorAddUser && (
+            <div className="add-user__error error">{errorAddUser?.response?.data?.reason}</div>
+          )}
         </div>)
       }
-      {isError && <div className="add-user__error error">{error?.response?.data?.reason}</div>}
+      {isErrorsUsers && (
+        <div className="add-user__error error">{errorUsers?.response?.data?.reason}</div>
+      )}
     </div>
   )
 }

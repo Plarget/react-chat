@@ -1,63 +1,71 @@
 @import "@/shared/styles/mixin.pcss";
 
 .button {
-    color: var(--color-white);
-    font-size: 13px;
-    line-height: 1;
-    font-weight: 500;
-    height: 37px;
-    border-radius: 8px;
-    background-color: var(--color-blue);
-    width: 100%;
-    white-space: nowrap;
-    transition: 0.3s;
+  color: var(--color-white);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+  height: 37px;
+  border-radius: 8px;
+  background-color: var(--color-blue);
+  width: 100%;
+  white-space: nowrap;
+  transition: 0.3s;
 
+  @media (hover: hover) {
     &:hover {
-        opacity: 0.75;
+      opacity: 0.75;
+    }
+  }
+
+  &--red {
+    background-color: var(--color-red);
+  }
+
+  &--transparent {
+    color: var(--color-red);
+    background-color: transparent;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba(255, 47, 47, 0.1);
+        opacity: 1;
+      }
+    }
+  }
+
+  &--tooltip {
+    color: var(--colod-dark);
+    font-size: 12px;
+    line-height: 1.25;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    column-gap: 15px;
+    background-color: transparent;
+    padding-inline: var(--tooltip-padding-inline);
+
+    & svg {
+      color: var(--color-blue);
+      width: 22px;
+      height: 22px;
     }
 
-    &--red {
-        background-color: var(--color-red);
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+        color: var(--color-blue);
+      }
     }
 
-    &--transparent {
+    &-red svg {
+      color: var(--color-red);
+    }
+
+    @media (hover: hover) {
+      &-red:hover {
         color: var(--color-red);
-        background-color: transparent;
-
-        &:hover {
-            background-color: rgba(255, 47, 47, 0.1);
-            opacity: 1;
-        }
+      }
     }
-
-    &--tooltip {
-        color: var(--colod-dark);
-        font-size: 12px;
-        line-height: 1.25;
-        display: flex;
-        align-items: center;
-        height: 38px;
-        column-gap: 15px;
-        background-color: transparent;
-        padding-inline: var(--tooltip-padding-inline);
-
-        & svg {
-            color: var(--color-blue);
-            width: 22px;
-            height: 22px;
-        }
-
-        &:hover {
-            opacity: 1;
-            color: var(--color-blue);
-        }
-
-        &-red svg {
-            color: var(--color-red);
-        }
-
-        &-red:hover {
-            color: var(--color-red);
-        }
-    }
+  }
 }

@@ -1,3 +1,3 @@
-import Layout from "./ui";
+import Layout from "./ui"
 
 export default Layout

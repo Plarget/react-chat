@@ -1,5 +1,5 @@
-import type {FC} from "react"
-import {TChatPreview} from "@/widgets/Chat/ui/ChatSideBar/ui/ChatPreview/types.ts"
+import type { FC } from "react"
+import { TChatPreview } from "./types.ts"
 import * as classNames from "classnames"
 import getDateFormatted from "@/shared/utils/getDateFormatted"
 import "./ChatPreview.pcss"
@@ -7,11 +7,13 @@ import "./ChatPreview.pcss"
 const ChatPreview: FC<TChatPreview> = (props) => {
   const {
     chat,
-    setChat,
-    setActive
+    setCurrentChat,
+    setActive,
+    chatAvatar
   } = props
 
-  const {title, last_message, unread_count} = chat
+  const {title, last_message, unread_count, avatar, id: chatId} = chat
+  const isCurrentChatAvatarId = chatAvatar.chatId === chatId && chatAvatar.src
 
   return (
     <button
@@ -19,10 +21,21 @@ const ChatPreview: FC<TChatPreview> = (props) => {
       type="button"
       onClick={() => {
         setActive(false)
-        setChat(chat)
+        setCurrentChat(chat)
       }}
     >
-      <div className="chat-preview__image-wrapper"></div>
+      <div className="chat-preview__image-wrapper">
+        {(avatar || isCurrentChatAvatarId) && (
+          <img
+            className="chat__header-image"
+            src={isCurrentChatAvatarId ? chatAvatar.src : (
+              avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : ""
+            )}
+            alt="Chat avatar"
+            width="47" height="47" loading="lazy"
+          />
+        )}
+      </div>
       <div className="chat-preview__body">
         <div className="chat-preview__header">
           <h4 className="chat-preview__label label label--small">{title}</h4>

@@ -1,3 +1,3 @@
-import ChatPreview from "./ui";
+import ChatPreview from "./ui"
 
 export default ChatPreview

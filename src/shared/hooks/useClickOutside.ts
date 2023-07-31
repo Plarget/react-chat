@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { TUseClickOutside } from "@/shared/hooks/types"
+import { TUseClickOutside } from "./types"
 
 const useClickOutside: TUseClickOutside = (callback, ref) => {
   const onClick: EventListener = (event) => {
