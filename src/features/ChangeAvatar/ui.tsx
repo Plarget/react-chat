@@ -1,11 +1,15 @@
 import type { FC, FormEventHandler } from "react"
+import type { AxiosResponse } from "axios"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
+import type { TChangeUserAvatarData } from "@/shared/services/usersServices/types"
+import type { TChangeChatAvatarData } from "@/shared/services/chatServices/types"
+import type { TChangeAvatar } from "./types.ts"
 import Button from "@/shared/ui/Button"
 import usersServices from "@/shared/services/usersServices"
 import { useState } from "react"
 import * as classNames from "classnames"
 import { useMutation } from "@tanstack/react-query"
 import Loading from "@/shared/ui/Loading"
-import { TChangeAvatar } from "./types.ts"
 import chatsServices from "@/shared/services/chatServices"
 import "./ChangeAvatar.pcss"
 
@@ -23,7 +27,7 @@ const ChangeAvatar: FC<TChangeAvatar> = (props) => {
     isError: isErrorProfile,
     error: errorProfile,
     mutate: changeAvatarProfile
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChangeUserAvatarData>({
     mutationKey: ["changeAvatarProfile"],
     mutationFn: usersServices.changeAvatar,
     onSuccess: () => {
@@ -36,15 +40,16 @@ const ChangeAvatar: FC<TChangeAvatar> = (props) => {
     isError: isErrorChat,
     error: errorChat,
     mutate: changeAvatarChat
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChangeChatAvatarData>({
     mutationKey: ["changeAvatarChat"],
     mutationFn: chatsServices.changeAvatar,
     onSuccess: () => {
-      if (!file) return null
+      if (!file || !setChatAvatar) return null
 
       const reader = new FileReader()
+
       reader.onload = (event) => {
-        setChatAvatar?.((object) => (
+        setChatAvatar((object) => (
           {
             ...object,
             src: event.target?.result as string

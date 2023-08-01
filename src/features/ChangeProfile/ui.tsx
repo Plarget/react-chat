@@ -1,4 +1,7 @@
 import type { FC } from "react"
+import type { TChangeUserProfile } from "@/shared/services/usersServices/types"
+import type { AxiosResponse } from "axios"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
 import Input from "@/shared/ui/Input"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
@@ -9,7 +12,6 @@ import Loading from "@/shared/ui/Loading"
 import usersServices from "@/shared/services/usersServices"
 import { useEffect } from "react"
 import { TChangeProfile } from "@/features/ChangeProfile/types.ts"
-import { TChangeUserProfile } from "@/shared/types/comon.ts"
 import "./ChangeProfile.pcss"
 
 const schema = yup.object({
@@ -54,7 +56,7 @@ const ChangeProfile: FC<TChangeProfile> = (props) => {
     isError,
     error,
     mutate: changeProfile
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChangeUserProfile>({
     mutationKey: ["changeProfile"],
     mutationFn: (data: TChangeUserProfile) => {
       const dataChange = {

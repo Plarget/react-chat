@@ -9,8 +9,11 @@ import SvgIcon from "@/shared/ui/SvgIcon"
 import * as classNames from "classnames"
 import Button from "@/shared/ui/Button"
 import chatsServices from "@/shared/services/chatServices"
-import { TAddUsers } from "./types.ts"
+import type { TAddUsers } from "./types.ts"
 import useDebounce from "@/shared/hooks/useDebounce.ts"
+import type { TSearchUserList } from "@/shared/services/usersServices/types"
+import type { AxiosResponse } from "axios"
+import type { TChatUsers, TErrorResponse } from "@/shared/types/comon.ts"
 import "./AddUsers.pcss"
 
 const AddUsers: FC<TAddUsers> = (props) => {
@@ -24,10 +27,10 @@ const AddUsers: FC<TAddUsers> = (props) => {
   const hasUsersInForm = usersForm.length > 0
 
   const {
-    data: usersData,
+    data: users,
     isError: isErrorsUsers,
     error: errorUsers
-  } = useQuery(
+  } = useQuery<TSearchUserList, TErrorResponse>(
     ["searchUser", debouncedValue],
     () => usersServices.searchUser({login: debouncedValue.trim()}), {
       enabled: Boolean(debouncedValue.trim()),
@@ -39,7 +42,7 @@ const AddUsers: FC<TAddUsers> = (props) => {
     isError: isErrorAddUser,
     error: errorAddUser,
     mutate: addUsers
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChatUsers>({
     mutationKey: ["addUsers"],
     mutationFn: chatsServices.addUsers,
     onSuccess: () => {
@@ -47,8 +50,6 @@ const AddUsers: FC<TAddUsers> = (props) => {
       setUsersForm([])
     }
   })
-
-  const users = usersData?.data
 
   return (
     <div className="add-user">

@@ -1,14 +1,12 @@
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 import { TUseBodyLock } from "./types.ts"
 
 
-const useBodyLock: TUseBodyLock = ( ref) => {
+const useBodyLock: TUseBodyLock = ( ) => {
   return (state) => {
-    if (!ref?.current) return null
     if (state) {
-      disableBodyScroll(ref.current, {reserveScrollBarGap: true,})
+      document.body.classList.add("is-lock")
     } else {
-      enableBodyScroll(ref.current)
+      document.body.classList.remove("is-lock")
     }
   }
 }

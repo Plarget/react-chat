@@ -1,5 +1,5 @@
 import { TMessage } from "@/shared/types/comon.ts"
-import { TChatSocket } from "./types.ts"
+import { TChatSocket, TChatSocketCallbackMessage, TChatSocketSetSocket } from "./types"
 
 class ChatSocket implements TChatSocket {
 
@@ -9,12 +9,18 @@ class ChatSocket implements TChatSocket {
     public userId: number,
     chatId: number,
     token: string,
-    public callbackSetMessage: (state: ((array: Array<TMessage>) => Array<TMessage>) | Array<TMessage>) => void,
-    public setSocket: (state: TChatSocket) => void,
+    public callbackSetMessage: TChatSocketCallbackMessage,
+    public setSocket: TChatSocketSetSocket,
   ) {
     this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`)
     this.userId = userId
     this.callbackSetMessage = callbackSetMessage
+    this.setSocket = setSocket
+
+    this.init()
+  }
+
+  init = () => {
     this.socket.onopen = () => {
       this.socket.send(
         JSON.stringify({
@@ -23,17 +29,10 @@ class ChatSocket implements TChatSocket {
         }))
     }
 
-    this.socket.onclose = (event) => {
-      console.log("Закрытие", event.wasClean)
-      if (!event.wasClean) {
-        this.socket = new ChatSocket(userId, chatId, token, callbackSetMessage, setSocket).socket
-      }
-    }
-
     this.socket.onmessage = (event: MessageEvent<string>) => {
       this.addMessage(JSON.parse(event.data) as Array<TMessage> | TMessage)
     }
-    setSocket(this)
+    this.setSocket(this)
   }
 
   addMessage = (data: Array<TMessage> | TMessage) => {

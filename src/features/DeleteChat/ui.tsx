@@ -1,6 +1,9 @@
 import type { FC } from "react"
+import type { AxiosResponse } from "axios"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
+import type { TChatDeleteData } from "@/shared/services/chatServices/types"
+import type { TDeleteChat } from "./types.ts"
 import Button from "@/shared/ui/Button"
-import { TDeleteChat } from "./types.ts"
 import { useMutation } from "@tanstack/react-query"
 import chatsServices from "@/shared/services/chatServices"
 import Loading from "@/shared/ui/Loading"
@@ -19,7 +22,7 @@ const DeleteChat: FC<TDeleteChat> = (props) => {
     isError,
     error,
     mutate: deleteChat
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChatDeleteData>({
     mutationKey: ["deleteChat"],
     mutationFn: chatsServices.deleteChat,
     onSuccess: () => {

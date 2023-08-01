@@ -1,13 +1,15 @@
 import axios from "axios"
-import { TChatsServices } from "./types.ts"
+import { TChatsServices, TGetChatList } from "./types"
+import { TGetChatUsers } from "./types"
 
 const BASE_URL = "https://ya-praktikum.tech/api/v2"
 
 const chatsServices: TChatsServices = {
   getChats: async (query) => {
-    return axios.get(`${BASE_URL}/chats`, {
+    return axios.get<TGetChatList>(`${BASE_URL}/chats`, {
       params: {title: query}
     })
+      .then(({data}) => data)
   },
   createChat: async (data) => {
     return axios.post(`${BASE_URL}/chats`, data, {
@@ -25,7 +27,8 @@ const chatsServices: TChatsServices = {
     })
   },
   getUsers: async (id) => {
-    return axios.get(`${BASE_URL}/chats/${id}/users`)
+    return axios.get<TGetChatUsers>(`${BASE_URL}/chats/${id}/users`)
+      .then(({data}) => data)
   },
   addUsers: async (data) => {
     return axios.put(`${BASE_URL}/chats/users`, data, {

@@ -25,14 +25,12 @@ const ChatSideBar: FC<TChatSideBar> = (props) => {
   const [value, setValue] = useState("")
   const debouncedValue = useDebounce<string>(value)
 
-  const {data: dataChats, refetch} = useQuery(
+  const {data: chats, refetch} = useQuery(
     ["getChats", debouncedValue, currentChat],
     () => chatsServices.getChats(debouncedValue), {
       keepPreviousData: true
     }
   )
-
-  const chats = dataChats?.data
 
   return (
     <aside className={classNames("chat-side-bar", {

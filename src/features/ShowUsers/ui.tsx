@@ -2,7 +2,6 @@ import type { FC } from "react"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import chatsServices from "@/shared/services/chatServices"
 import { TShowUsers } from "./types.ts"
-import { TChatUsers, TErrorResponse } from "@/shared/types/comon.ts"
 import PreviewUser from "@/shared/ui/PreviewUser"
 import IconButton from "@/shared/ui/IconButton"
 import SvgIcon from "@/shared/ui/SvgIcon"
@@ -15,7 +14,7 @@ const ShowUsers: FC<TShowUsers> = (props) => {
   } = props
 
   const {
-    data: dataChatUsers,
+    data: users,
     refetch: refetchChatUsers
   } = useQuery(
     ["getUsers"],
@@ -29,14 +28,14 @@ const ShowUsers: FC<TShowUsers> = (props) => {
 
   const {
     mutate: deleteUsers
-  } = useMutation<object, TErrorResponse, TChatUsers>({
+  } = useMutation({
     mutationKey: ["deleteUsers"],
     mutationFn: chatsServices.deleteUsers,
     onSuccess: () => {
       refetchChatUsers()
+        .catch((error) => console.log(error))
     }
   })
-  const users = dataChatUsers?.data
 
   return (
     <div className="show-users">
@@ -48,8 +47,8 @@ const ShowUsers: FC<TShowUsers> = (props) => {
               <PreviewUser
                 className="show-users__user-preview"
                 user={user}
-                isUserSelf={user.id === dataUser.data.id}
-                actionButton={user.id !== dataUser.data.id && (
+                isUserSelf={user.id === dataUser.id}
+                actionButton={user.id !== dataUser.id && (
                   <IconButton
                     className="show-users__user-button"
                     onClick={() => deleteUsers({

@@ -20,11 +20,10 @@ const Profile: FC = () => {
   const [isActivePopupPassword, setActivePopupPassword] = useState(false)
 
   const dispatch = useAppDispatch()
-  const {data: userData, refetch: userRefetch} = useQuery(
+  const {data: user, refetch: userRefetch} = useQuery(
     ["userInfo"],
     authServices.getUserInfo,
   )
-  const user = userData?.data
 
   const {mutate: logOut} = useMutation({
     mutationKey: ["logOut"],

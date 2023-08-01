@@ -1,4 +1,7 @@
 import { FC } from "react"
+import type { TSignInUserData } from "@/shared/services/authServices/types"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
+import type { AxiosResponse } from "axios"
 import Input from "@/shared/ui/Input"
 import { useForm } from "react-hook-form"
 import Button from "@/shared/ui/Button"
@@ -11,7 +14,6 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import Loading from "@/shared/ui/Loading"
 import { useMutation } from "@tanstack/react-query"
 import { setAuth } from "@/shared/store/reducers/AuthSlice.ts"
-import { TErrorResponse, TLogInUser } from "@/shared/types/comon.ts"
 import "./LogIn.pcss"
 
 const schema = yup
@@ -25,7 +27,7 @@ const LogIn: FC = () => {
     register,
     formState: {errors},
     handleSubmit
-  } = useForm<TLogInUser>({
+  } = useForm<TSignInUserData>({
     resolver: yupResolver(schema),
   })
 
@@ -37,7 +39,7 @@ const LogIn: FC = () => {
     isError,
     error,
     mutate: signIn
-  } = useMutation<object, TErrorResponse, TLogInUser>({
+  } = useMutation<AxiosResponse, TErrorResponse, TSignInUserData>({
     mutationKey: ["signIn"],
     mutationFn: authServices.postSignIn,
     onSuccess: () => {
@@ -70,7 +72,7 @@ const LogIn: FC = () => {
           />
         </div>
         <div className="login__actions">
-          {isError && <div className="login__error error">{error?.response.data.reason}</div>}
+          {isError && <div className="login__error error">{error?.response?.data.reason}</div>}
           <Button className="login__button" type="submit">Авторизоваться</Button>
           <NavLink className="login__link link" to="/register">Нет аккаунта?</NavLink>
         </div>

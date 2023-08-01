@@ -1,10 +1,10 @@
 import type { FC, MouseEventHandler, PropsWithChildren } from "react"
 import * as classNames from "classnames"
-import { TPopup } from "./types.ts"
-import useBodyLock from "@/shared/hooks/useBodyLock.ts"
-import { useEffect, useRef } from "react"
+import type { TPopup } from "./types.ts"
+import { useEffect } from "react"
 import IconButton from "@/shared/ui/IconButton"
 import SvgIcon from "@/shared/ui/SvgIcon"
+import useBodyLock from "@/shared/hooks/useBodyLock.ts"
 import "./Popup.pcss"
 
 const Popup: FC<PropsWithChildren<TPopup>> = (props) => {
@@ -12,27 +12,25 @@ const Popup: FC<PropsWithChildren<TPopup>> = (props) => {
     setActive,
     children
   } = props
-  const ref = useRef(null)
-  const bodyLock = useBodyLock(ref)
-
+  const bodyLock = useBodyLock()
   const popupClick: MouseEventHandler = (event) => {
-    if (event.currentTarget === event.target)     setActive(false)
+    if (event.currentTarget === event.target) setActive(false)
   }
 
-  useEffect( () => {
+  useEffect(() => {
     bodyLock(true)
     return () => {
-      console.log(ref)
+      bodyLock(false)
     }
   }, [])
 
   return (
     <div className={classNames("popup")} onClick={popupClick}>
-      <div className="popup__body" ref={ref}>
+      <div className="popup__body">
         <IconButton
           className="popup__cross icon-button--hover"
           aria-label="close the popup"
-          onClick={() =>     setActive(false)}
+          onClick={() => setActive(false)}
         >
           <span className="popup__cross-svg-wrapper" title="close">
             <SvgIcon className="popup__cross-svg" name="cross"/>

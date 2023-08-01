@@ -7,7 +7,7 @@ import chatsServices from "@/shared/services/chatServices"
 import ChatHeader from "./ui/ChatHeader"
 import ChatMessages from "./ui/ChatMessages"
 import ChatForm from "./ui/ChatForm"
-import chatSocket from "@/shared/services/chatSocket"
+import ChatSocket from "@/shared/services/chatSocket"
 import { TChatSocket } from "@/shared/services/chatSocket/types.ts"
 import { TChatAvatar } from "./types.ts"
 import "./Chat.pcss"
@@ -28,7 +28,15 @@ const Chat: FC = () => {
     if (currentChat) {
       Promise.all([authServices.getUserInfo(), chatsServices.getToken(currentChat?.id)])
         .then(([user, token]) => {
-          curSocket = new chatSocket(user.data.id, currentChat.id, token.data.token, setMessages, setSocket)
+          const getSocket = () => new ChatSocket(user.id, currentChat.id, token.data.token, setMessages, setSocket)
+          const onCloseSocket = (event: CloseEvent) => {
+            if (!event.wasClean) {
+              curSocket = getSocket()
+              curSocket.socket.onclose = onCloseSocket
+            }
+          }
+          curSocket = getSocket()
+          curSocket.socket.onclose = onCloseSocket
         })
         .catch((error) => console.log(error))
       setChatAvatar({
@@ -37,7 +45,7 @@ const Chat: FC = () => {
       })
     }
     return () => {
-       curSocket?.socket.close()
+      curSocket?.socket.close()
     }
   }, [currentChat])
 

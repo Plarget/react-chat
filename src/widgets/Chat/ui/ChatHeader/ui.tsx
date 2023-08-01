@@ -50,6 +50,9 @@ const ChatHeader: FC<TChatHeader> = (props) => {
             width="34" height="34" loading="lazy"
           />
         )}
+        <span className="chat__header-image-change text text--white">
+          <SvgIcon className="chat__header-image-change-svg" name="edit"/>
+        </span>
       </button>
       <h2 className="chat__header-title label label--small">{title}</h2>
       <Tooltip

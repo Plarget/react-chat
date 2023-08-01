@@ -1,6 +1,8 @@
 import type { FC } from "react"
+import type { TChangePasswordData } from "@/shared/services/usersServices/types"
+import type { AxiosResponse } from "axios"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
 import { useForm } from "react-hook-form"
-import { TChangePassword } from "@/shared/types/comon.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Input from "@/shared/ui/Input"
@@ -24,7 +26,7 @@ const ChangePassword: FC = () => {
     formState: {errors},
     handleSubmit,
     reset
-  } = useForm<TChangePassword>({
+  } = useForm<TChangePasswordData>({
     resolver: yupResolver(schema),
   })
 
@@ -33,7 +35,7 @@ const ChangePassword: FC = () => {
     isError,
     error,
     mutate: changePassword
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TChangePasswordData>({
     mutationKey: ["changePassword"],
     mutationFn: usersServices.changePassword,
     onSuccess: () => {

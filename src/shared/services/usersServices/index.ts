@@ -1,5 +1,5 @@
 import axios from "axios"
-import { TUsersServices } from "./types"
+import { TSearchUserList, TUsersServices } from "./types"
 
 axios.defaults.withCredentials = true
 
@@ -32,11 +32,12 @@ const usersServices: TUsersServices = {
     })
   },
   searchUser: async (data) => {
-    return axios.post(`${BASE_URL}/user/search`, data, {
+    return axios.post<TSearchUserList>(`${BASE_URL}/user/search`, data, {
       headers: {
         "Content-Type": "application/json",
       }
     })
+      .then((resp ) => resp.data)
   }
 }
 

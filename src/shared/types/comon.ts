@@ -1,17 +1,4 @@
-export type TLogInUser = {
-  login: string,
-  password: string,
-}
-
-export type TSignUp = {
-  first_name: string,
-  second_name: string,
-  login: string,
-  email: string,
-  password: string,
-  confirm_password: string,
-  phone: string
-}
+import { AxiosError } from "axios"
 
 export type TUser = {
   id: number,
@@ -23,40 +10,9 @@ export type TUser = {
 }
 
 
-export type TErrorResponse = {
-  response: {
-    data: {
-      reason: string
-    }
-  }
-  message: string
-};
-
-export type TChangeUserProfile= {
-  first_name: string,
-  second_name: string,
-  display_name: string,
-  login: string,
-}
-
-export type TChangeUserProfileRequest = {
-  first_name: string,
-  second_name: string,
-  display_name: string,
-  login: string,
-  email: string,
-  phone: string,
-}
-
-export type TChangePassword = {
-  oldPassword: string,
-  newPassword: string,
-  confirmNewPassword: string,
-}
-
-export type TCreateChat = {
-  title: string
-}
+export type TErrorResponse = AxiosError<{
+  reason: string
+}>
 
 export type TChat = {
   avatar: string | null,
@@ -65,10 +21,6 @@ export type TChat = {
   title: string,
   last_message: TMessage | null,
   unread_count: number,
-}
-
-export type TChatDelete = {
-  chatId: number
 }
 
 export type TUserChat = {
@@ -81,15 +33,6 @@ export type TUserChat = {
   phone: string,
   avatar: string,
   role: string
-}
-
-export type TSearchUser = {
-  login: string
-}
-
-export type TChatUsers = {
-  users: Array<number>,
-  chatId: number
 }
 
 export type TMessage = {

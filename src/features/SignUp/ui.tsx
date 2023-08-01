@@ -1,9 +1,11 @@
-import { FC } from "react"
+import type { FC } from "react"
+import type { AxiosResponse } from "axios"
+import type { TSignUpData } from "@/shared/services/authServices/types"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
 import { useForm } from "react-hook-form"
 import Input from "@/shared/ui/Input"
 import Button from "@/shared/ui/Button"
 import { NavLink } from "react-router-dom"
-import { TErrorResponse, TSignUp } from "@/shared/types/comon.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import authServices from "@/shared/services/authServices"
@@ -44,7 +46,7 @@ const SignUp: FC = () => {
     formState: {
       errors
     }
-  } = useForm<TSignUp>({
+  } = useForm<TSignUpData>({
     resolver: yupResolver(schema),
   })
 
@@ -57,9 +59,9 @@ const SignUp: FC = () => {
     isError,
     error,
     mutate: signUp
-  } = useMutation<object, TErrorResponse, TSignUp>({
+  } = useMutation<AxiosResponse, TErrorResponse, TSignUpData>({
     mutationKey: ["signUp"],
-    mutationFn: (data: TSignUp) => {
+    mutationFn: (data) => {
       const phoneValue = "8" + unmaskedValue.slice(2)
       return authServices.postSignUp({...data, phone: phoneValue})
     },
@@ -139,7 +141,7 @@ const SignUp: FC = () => {
           />
         </div>
         <div className="sign-in__actions">
-          {isError && <div className="sign-in__error error">{error?.response.data.reason}</div>}
+          {isError && <div className="sign-in__error error">{error?.response?.data.reason}</div>}
           <Button className="sign-in__button" type="submit">Зарегистрироваться</Button>
           <NavLink className="sign-in__link link" to="/login">Войти</NavLink>
         </div>

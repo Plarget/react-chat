@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { TUseDebounce } from "./types.ts"
 
-const useDebounce: TUseDebounce = (value, delay = 500) => {
+const useDebounce: TUseDebounce = (value, delay = 250) => {
   const [debounceValue, setDebounceValue] = useState(value)
 
   useEffect(() => {

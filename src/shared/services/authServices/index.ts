@@ -1,5 +1,6 @@
 import axios from "axios"
 import { TAuthServices } from "./types"
+import { TUser } from "@/shared/types/comon.ts"
 
 axios.defaults.withCredentials = true
 
@@ -21,7 +22,8 @@ const authServices: TAuthServices = {
     })
   },
   getUserInfo: async () => {
-    return axios.get(`${BASE_URL}/auth/user`)
+    return axios.get<TUser>(`${BASE_URL}/auth/user`)
+      .then(({data}) => data)
   },
   postLogOut: async () => {
     return axios.post(`${BASE_URL}/auth/logout`)

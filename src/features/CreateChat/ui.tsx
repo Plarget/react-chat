@@ -1,14 +1,16 @@
 import type { FC } from "react"
+import type { TCreateChatData } from "@/shared/services/chatServices/types"
+import type { AxiosResponse } from "axios"
+import type { TCreatChat } from "./types.ts"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
 import Input from "@/shared/ui/Input"
 import Button from "@/shared/ui/Button"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useMutation } from "@tanstack/react-query"
-import { TCreateChat } from "@/shared/types/comon.ts"
 import chatsServices from "@/shared/services/chatServices"
 import Loading from "@/shared/ui/Loading"
-import { TCreatChat } from "./types.ts"
 import "./CreateChat.pcss"
 
 const schema = yup.object({
@@ -26,7 +28,7 @@ const CreateChat: FC<TCreatChat> = (props) => {
     register,
     formState: {errors},
     handleSubmit,
-  } = useForm<TCreateChat>({
+  } = useForm<TCreateChatData>({
     resolver: yupResolver(schema),
   })
 
@@ -35,7 +37,7 @@ const CreateChat: FC<TCreatChat> = (props) => {
     isError,
     error,
     mutate: createChat
-  } = useMutation({
+  } = useMutation<AxiosResponse, TErrorResponse, TCreateChatData>({
     mutationKey: ["createChat"],
     mutationFn: chatsServices.createChat,
     onSuccess: () => {
