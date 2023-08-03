@@ -4,8 +4,8 @@ import * as path from "path"
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
 
 export default defineConfig({
+  base: "/react-chat/",
   plugins: [react(), createSvgIconsPlugin({
-    // Specify the icon folder to be cached
     iconDirs: [path.resolve(process.cwd(), "public/images/icons")],
     symbolId: "icon-[dir]-[name]",
 
