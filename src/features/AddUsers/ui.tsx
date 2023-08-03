@@ -13,7 +13,8 @@ import type { TAddUsers } from "./types.ts"
 import useDebounce from "@/shared/hooks/useDebounce.ts"
 import type { TSearchUserList } from "@/shared/services/usersServices/types"
 import type { AxiosResponse } from "axios"
-import type { TChatUsers, TErrorResponse } from "@/shared/types/comon.ts"
+import type { TErrorResponse } from "@/shared/types/comon.ts"
+import type { TChatUsers } from "@/shared/services/chatServices/types"
 import "./AddUsers.pcss"
 
 const AddUsers: FC<TAddUsers> = (props) => {
