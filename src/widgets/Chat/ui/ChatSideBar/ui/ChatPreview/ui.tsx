@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { TChatPreview } from "./types.ts"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import getDateFormatted from "@/shared/utils/getDateFormatted"
 import "./ChatPreview.pcss"
 

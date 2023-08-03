@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import { useRef } from "react"
 import useClickOutside from "@/shared/hooks/useClickOutside.ts"
 import useToggle from "@/shared/hooks/useToggle.ts"

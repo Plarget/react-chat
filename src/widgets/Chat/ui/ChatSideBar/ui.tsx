@@ -9,7 +9,7 @@ import { useState } from "react"
 import CreateChat from "@/features/CreateChat"
 import ChatPreview from "./ui/ChatPreview"
 import { TChatSideBar } from "./types.ts"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import useDebounce from "@/shared/hooks/useDebounce.ts"
 import "./ChatSideBar.pcss"
 

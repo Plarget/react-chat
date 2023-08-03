@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { TPreviewUser } from "./types.ts"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import "./PreviewUser.pcss"
 
 const PreviewUser: FC<TPreviewUser> = (props) => {

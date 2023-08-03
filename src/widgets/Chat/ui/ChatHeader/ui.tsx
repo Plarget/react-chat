@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import Tooltip from "@/shared/ui/Tooltip"
 import IconButton from "@/shared/ui/IconButton"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import SvgIcon from "@/shared/ui/SvgIcon"
 import { TChatHeader } from "./types.ts"
 import Button from "@/shared/ui/Button"

@@ -1,5 +1,5 @@
 import type { FC, MouseEventHandler, PropsWithChildren } from "react"
-import * as classNames from "classnames"
+import classNames from "classnames"
 import type { TPopup } from "./types.ts"
 import { useEffect } from "react"
 import IconButton from "@/shared/ui/IconButton"
